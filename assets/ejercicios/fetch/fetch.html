@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./../../css/prism.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="./../../../index.html"> Volver</a>
+    <h1>Fetch</h1>
+
+
+    <img id="img" src="" height="400">
+
+    <button id="load">Load Imagen</button>
+    <button id="stop">Stop Fetching</button>
+
+    <h1>Codigo Ejemplo</h1>
+    <pre><code class="language-js">
+    const url = 'https://images.pexels.com/photos/974470/nature-stars-milky-way-galaxy-974470.jpeg?q=100';
+    const img = document.getElementById('img');
+    const loadButton = document.getElementById('load');
+    const stopButton = document.getElementById('stop');
+    let controller;
+    
+    //método que nos da visual de carga de elemento
+    function startLoadImg() {
+        loadButton.disabled = true;
+        loadButton.innerText = 'loading...'
+        stopButton.disabled = false;
+    }
+    
+    // realizamos la carga de la imagen
+    loadButton.onclick = async function() {
+        startLoadImg();
+        //instanciamos el controller
+        controller = new AbortController();
+        try {
+            // hacemos el fetch y pasamos el objeto de configuración que en este caso nos ayudara a cancelar el fect si la imagen es muy lenta de cargar
+            const response = await fetch(url, { signal: controller.signal });
+            const blob = await response.blob();
+            const imgUrl = URL.createObjectURL(blob);
+            img.src = imgUrl;
+            stopLoadImg();
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+    
+    function stopLoadImg() {
+        loadButton.disabled = false;
+        loadButton.innerText = 'Load Image';
+        stopButton.disabled = true;
+    }
+    
+    stopButton.onclick = function() {
+        controller.abort();
+        stopLoadImg();
+    }
+
+</code></pre>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+<script src="./../../js/prism.js"></script>
+<script src="./fetch.js"></script>
+
+</html>

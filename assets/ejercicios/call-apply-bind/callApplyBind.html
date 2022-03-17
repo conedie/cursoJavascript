@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./../../css/prism.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="./../../../index.html"> Volver</a>
+
+    <h3> Ejercicio call 1</h3>
+    <p> uso de del método que ofrece el proto para llamar un método pasando un objeto.</p>
+
+    <pre><code class="language-js">
+
+        function saludar() {
+            console.log(`Hola Soy ${this.name} - ${this.apellido}`);
+        }
+        
+        const diego = {
+            name: 'Diego',
+            apellido: 'Beltran'
+        }
+        
+        // usamos call para pasar el contexo
+        
+        console.log('function call');
+        saludar.call(diego);
+    </code></pre>
+
+    <br>
+
+    <h3> Ejercicio call 2</h3>
+    <p>Ueso del del método call pasando un objeto y argumentos addcionales.</p>
+    <pre><code class="language-js">
+        function caminar(metros, faltan) {
+            console.log(`El desarrollador ${this.name} ${this.apellido} ha caminado ${metros} metros de ${faltan} que le hacen falta`);
+        }
+        
+        console.log('function call ejercicio 2');
+        caminar.call(diego, 50, 100);
+    </code></pre>
+
+    <h3> Ejercicio Apply</h3>
+    <p>Funciona iguial que el call solo que sepasan los argumentos en array []</p>
+    <pre><code class="language-js">
+        function caminar(metros, faltan) {
+            console.log(`El desarrollador ${this.name} ${this.apellido} ha caminado ${metros} metros de ${faltan} que le hacen falta`);
+        }
+        
+        console.log('function apply ejercicio');
+        caminar.apply(diego, [500, 1000]);
+    </code></pre>
+
+    <h3> Ejercicio Bind</h3>
+    <p> creaun un objeto a partir de otro.</p>
+    <pre><code class="language-js">
+        const dori = {
+            name: 'Doriana',
+            apellido: 'Beltrán'
+        }
+        
+        const doriSaluda = saludar.bind(dori);
+        
+        console.log('function bind ejercicio');
+        doriSaluda();
+        
+        //forma objeto
+        const doriCamina = caminar.bind(dori);
+        console.log('function bind ejercicio forma 1');
+        doriCamina(1, 2);
+        // forma total
+        const doriCamina2 = caminar.bind(dori, 2, 3);
+        console.log('function bind ejercicio forma 2');
+        doriCamina2();
+        // forma parcial
+        const doriCamina3 = caminar.bind(dori, 4);
+        console.log('function bind ejercicio forma 3');
+        doriCamina3(2);
+        
+    </code></pre>
+
+    <h3>Manipulación del DOM </h3>
+    <p>accedemos a los btn con clase testCall, luego mediante el método ARRAT del proto los recorremos en un loop y generamos una funcion anonima que genera un lert.</p>
+
+    <pre><code class="language-js">
+    const botones = document.getElementsByClassName('testCall');
+
+    Array.prototype.forEach.call(botones, button => {
+        button.onclick = () => alert('continua aprendiendo');
+    })
+</code></pre>
+
+    <button class="testCall">btn1</button>
+    <button class="testCall">btn2</button>
+    <button class="testCall">btn3</button>
+    <button class="testCall">btn4</button>
+
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+<script src="./../../js/prism.js"></script>
+<script src="./callApplyBind.js"></script>
+
+</html>

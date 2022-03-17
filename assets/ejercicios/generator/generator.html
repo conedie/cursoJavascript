@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./../../css/prism.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="./../../../index.html"> Volver</a>
+    <h1>Generator</h1>
+    <p>Los generadores son funciones de las que se puede salir y volver a entrar. Su contexto (asociación de variables) sera concervado entre entradas Cada vez que se llame next, la ejecución del generador va acontinuar hasta el proximo yield
+    </p>
+    <br>
+    <h3>Geneador Sencillo</h3>
+    <pre><code class="language-js">
+        function* simpleGenerator() {
+            console.log('PARTE UNO');
+            yield;
+            console.log('PARTE DOS');
+        }
+        
+        document.getElementById('genSencillo').onclick = function() {
+            const generatorSimple = simpleGenerator();
+            console.log(generatorSimple);
+            console.log(generatorSimple.next());
+            console.log(generatorSimple.next());
+        }
+    </code></pre>
+    <button id="genSencillo">Ver en consola</button>
+
+    <h3>Generador infinito</h3>
+    <pre><code class="language-js">
+        function* infinityGenerator() {
+            let id = 1;
+            while (true) {
+                yield id;
+                id = id + 1;
+            }
+        }
+        
+        document.getElementById('genInfinity').onclick = function() {
+            const generadorInfinito = infinityGenerator();
+        
+            console.log(generadorInfinito.next());
+            console.log(generadorInfinito.next());
+            console.log(generadorInfinito.next());
+            console.log(generadorInfinito.next());
+            console.log(generadorInfinito.next());
+        
+        }; 
+    </code></pre>
+    <button id="genInfinity">Ver en consola</button>
+
+    <h3>Pasando valores en next</h3>
+    <pre><code class="language-js">
+        function* infinityGeneratorReset() {
+            let id = 1;
+            let reset;
+            while (true) {
+                reset = yield id;
+                if (reset) {
+                    id = 1;
+                } else {
+                    id = id + 1;
+                }
+            }
+        }
+        
+        document.getElementById('genReset').onclick = function() {
+            const generadorReset = infinityGeneratorReset();
+        
+            console.log(generadorReset.next());
+            console.log(generadorReset.next());
+            console.log(generadorReset.next(true));
+            console.log(generadorReset.next());
+            console.log(generadorReset.next());
+        
+        };
+    </code></pre>
+    <button id="genReset">Ver en consola</button>
+
+    <h3>fibonacci complejo</h3>
+    <pre><code class="language-js">
+        function* generadorFibonacci() {
+            a = 1;
+            b = 1;
+        
+            while (true) {
+                const nexNumber = a + b;
+                a = b;
+                b = nexNumber;
+                yield nexNumber;
+            }
+        }
+        
+        document.getElementById('genFibonacci').onclick = function() {
+            const fibonacci = generadorFibonacci();
+        
+            console.log(fibonacci.next());
+            console.log(fibonacci.next());
+            console.log(fibonacci.next());
+            console.log(fibonacci.next());
+            console.log(fibonacci.next());
+            console.log(fibonacci.next());
+            console.log(fibonacci.next());
+            console.log(fibonacci.next());
+            console.log(fibonacci.next());
+        
+        };
+    </code></pre>
+    <button id="genFibonacci">Ver en consola</button>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+<script src="./../../js/prism.js"></script>
+<script src="./generator.js"></script>
+
+</html>

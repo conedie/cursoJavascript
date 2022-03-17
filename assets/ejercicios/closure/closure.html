@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>Ver Consola</h3>
+
+</body>
+
+<script>
+    // IIFE
+    // Immediately Invoked Function Expresion    
+    (function() {
+        let color = 'red';
+
+        function printColor() {
+            console.log(color);
+        }
+        printColor();
+    })();
+
+    //closure funciones que retornan funciones
+    function makeColorPrint(color) {
+        let colorMessage = 'El color es ' + color;
+        return function() {
+            console.log(colorMessage);
+        };
+    }
+
+    colorPrinter = makeColorPrint('white');
+    console.log(colorPrinter());
+
+    function makeCounter(n) {
+        count = n;
+        return {
+            increase: function() {
+                count = count + 1;
+            },
+            decrease: function() {
+                count = count - 1;
+            },
+            getCount: function() {
+                return count;
+            }
+        }
+    }
+
+    let counter = makeCounter(11);
+
+    console.log('The count is ' + counter.getCount());
+    counter.increase()
+    counter.increase()
+    counter.decrease()
+    counter.decrease()
+    counter.decrease()
+    counter.decrease()
+    counter.decrease()
+    console.log('The count is ' + counter.getCount());
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+<script type="module" src="./closure.js"></script>
+
+</html>
